@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FindForm from './findForm';
 import FindResult from './findResult';
+import axios from 'axios';
 
 class JobFinder extends Component {
 
