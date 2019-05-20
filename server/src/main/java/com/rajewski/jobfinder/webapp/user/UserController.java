@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
+    @CrossOrigin
     @PostMapping("/new")
     public void saveUser(HttpEntity<String> httpEntity) {
         UserManager manager = new UserManager();
