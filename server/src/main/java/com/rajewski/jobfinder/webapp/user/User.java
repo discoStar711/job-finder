@@ -1,5 +1,8 @@
 package com.rajewski.jobfinder.webapp.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"id"})
 public class User {
 
     private Integer id;
