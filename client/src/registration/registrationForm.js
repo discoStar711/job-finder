@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios/index';
 
+const REGISTER_API_URL = 'http://localhost:8080/user/new';
+
 class RegistrationForm extends Component {
 
     constructor(props) {
@@ -39,6 +41,17 @@ class RegistrationForm extends Component {
         const username = this.state.username;
         const email = this.state.email;
         const password = this.state.password;
+        this.postForm(username, email, password);
+    }
+
+    postForm(username, email, password) {
+        axios.post(REGISTER_API_URL, {
+            username: username,
+            email: email,
+            password: password
+        })
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     render() {
