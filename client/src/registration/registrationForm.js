@@ -9,6 +9,27 @@ class RegistrationForm extends Component {
             email: '',
             password: ''
         };
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+
+    handleUsernameChange(event) {
+        this.setState({
+            username: event.target.value
+        });
+    }
+
+    handleEmailChange(event) {
+        this.setState({
+            email: event.target.value
+        });
+    }
+
+    handlePasswordChange(event) {
+        this.setState({
+            password: event.target.value
+        });
     }
 
     render() {
@@ -18,21 +39,21 @@ class RegistrationForm extends Component {
                 className=""
             >
                 <input
-                    onChange={}
+                    onChange={this.handleUsernameChange}
                     value={this.state.username}
                     className="form-control"
                     type="text"
                     placeholder="Username"
                 />
                 <input
-                    onChange={}
+                    onChange={this.handleEmailChange}
                     value={this.state.email}
                     className="form-control"
                     type="text"
                     placeholder="Email Address"
                 />
                 <input
-                    onChange={}
+                    onChange={this.handlePasswordChange}
                     value={this.state.password}
                     className="form-control"
                     type="password"
