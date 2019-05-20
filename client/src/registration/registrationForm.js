@@ -12,6 +12,7 @@ class RegistrationForm extends Component {
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleUsernameChange(event) {
@@ -32,10 +33,17 @@ class RegistrationForm extends Component {
         });
     }
 
+    handleFormSubmit(event) {
+        event.preventDefault();
+        const username = this.state.username;
+        const email = this.state.email;
+        const password = this.state.password;
+    }
+
     render() {
         return (
             <form
-                onSubmit={}
+                onSubmit={this.handleFormSubmit}
                 className=""
             >
                 <input
