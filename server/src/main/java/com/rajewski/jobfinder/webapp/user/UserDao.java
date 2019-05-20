@@ -1,6 +1,8 @@
 package com.rajewski.jobfinder.webapp.user;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -13,5 +15,17 @@ public class UserDao {
         dataSource.setUsername("root");
         dataSource.setPassword("password");
         return dataSource;
+    }
+
+    public void save(User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String email = user.getEmail();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+        String encodedPassword = encoder.encode(password);
+        String query = "INSERT INTO user (name, password, email) VALUES('" + username + "','" + encodedPassword + "','" + email + "');";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        jdbcTemplate.execute(query);
     }
 }
