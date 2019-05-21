@@ -12,6 +12,7 @@ class LoginForm extends Component {
         };
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleUsernameChange(event) {
@@ -26,10 +27,17 @@ class LoginForm extends Component {
         });
     }
 
+    handleFormSubmit(event) {
+        event.preventDefault();
+        const username = this.state.username;
+        const password = this.state.password;
+        const token = this.state.csrfToken;
+    }
+
     render() {
         return (
             <form
-                onSubmit={}
+                onSubmit={this.handleFormSubmit}
                 className=""
             >
                 <input
