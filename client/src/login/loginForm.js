@@ -90,10 +90,21 @@ class LoginForm extends Component {
             .catch(error => console.log(error));
     }
 
+    hasSessionCsrfToken() {
+        const sessionCsrfToken = Cookies.get('CSRF-Token');
+
+        if (sessionCsrfToken !== '' && sessionCsrfToken !== undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
-        if (this.state.isAuthenticated) {
+        if (this.state.isAuthenticated || this.hasSessionCsrfToken()) {
             return ( <Redirect to="/account"/> );
         } else {
+            this.getCsrfToken();
             return (
                 <form
                     onSubmit={this.handleFormSubmit}
