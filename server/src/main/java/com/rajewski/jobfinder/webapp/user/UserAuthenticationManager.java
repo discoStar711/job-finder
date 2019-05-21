@@ -31,6 +31,13 @@ public class UserAuthenticationManager {
 
                 if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword())) {
 
+                    String sessionId = request.getSession().getId();
+                    String sessionCsrfToken = csrfTokenManager.getSessionToken();
+                    UserSession userSession = new UserSession(retrievedDbUser.getId(), sessionCsrfToken);
+
+                    UserSessionManager userSessionManager = new UserSessionManager();
+                    userSessionManager.registerSession(sessionId, userSession);
+
                     responseEntity = new ResponseEntity<>(HttpStatus.OK);
                 } else {
                     responseEntity = new ResponseEntity<>(HttpStatus.FORBIDDEN);
