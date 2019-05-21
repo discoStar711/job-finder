@@ -19,6 +19,18 @@ class LoginForm extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
+    componentDidMount() {
+        const sessionCsrfToken = Cookies.get('CSRF-Token');
+        
+        if (sessionCsrfToken !== '' && sessionCsrfToken !== undefined) {
+            this.setState({
+                isAuthenticated: true
+            });
+        } else {
+            this.getCsrfToken();
+        }
+    }
+
     handleUsernameChange(event) {
         this.setState({
             username: event.target.value
@@ -37,6 +49,9 @@ class LoginForm extends Component {
         const password = this.state.password;
         const token = this.state.csrfToken;
         this.postForm(username, password);
+    }
+
+    getCsrfToken() {
     }
 
     postForm(username, password) {
