@@ -20,9 +20,11 @@ class User extends Component {
     }
 
     render() {
-        return (
-            <div></div>
-        );
+        if (this.hasPermission()) {
+            return <UserDetails />
+        } else {
+            return <Redirect to="/login" />
+        }
     }
 }
 
