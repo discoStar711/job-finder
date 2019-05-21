@@ -14,6 +14,11 @@ class UserDetails extends Component {
         };
     }
 
+    componentDidMount() {
+        const sessionCsrfToken = Cookies.get('CSRF-Token');
+        this.fetchUserDetails(sessionCsrfToken);
+    }
+
     fetchUserDetails(csrfToken) {
         axios({
             method: 'post',
