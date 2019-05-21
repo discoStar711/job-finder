@@ -11,8 +11,14 @@ class UserDetails extends Component {
     }
 
     render() {
+        const username = this.state.username;
+        const email = this.state.email;
+
         return (
-            <div></div>
+            <div>
+                <p>{username}</p>
+                <p>{email}</p>
+            </div>
         );
     }
 }
