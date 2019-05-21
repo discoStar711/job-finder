@@ -2,6 +2,8 @@ package com.rajewski.jobfinder.webapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Map;
+
 @JsonIgnoreProperties({"id"})
 public class User {
 
@@ -40,5 +42,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static User mapToObject(Map<String, Object> map) {
+        User user = new User();
+        user.setId((Integer) map.get("id"));
+        user.setUsername((String) map.get("name"));
+        user.setPassword((String) map.get("password"));
+        user.setEmail((String) map.get("email"));
+        return user;
     }
 }
