@@ -26,6 +26,12 @@ public class UserManager {
         String headerCsrfToken = request.getHeader("CSRF-Token");
         Cookie[] cookies = request.getCookies();
         Cookie sessionCsrfToken = getCookie(cookies, "CSRF-Token");
+
+        if (headerCsrfToken.equals(sessionCsrfToken.getValue())) {
+
+        } else {
+            return new User("Access denied.", "Access denied.");
+        }
     }
 
     private Cookie getCookie(Cookie[] cookies, String name) {
