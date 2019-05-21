@@ -5,6 +5,7 @@ import com.rajewski.jobfinder.webapp.security.CsrfTokenManager;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,12 @@ public class UserAuthenticationManager {
                 UserDao userDao = new UserDao();
                 User retrievedDbUser = userDao.findByUsername(user.getUsername());
 
+                if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword())) {
+
+                    responseEntity = new ResponseEntity<>(HttpStatus.OK);
+                } else {
+                    responseEntity = new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
                 responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
