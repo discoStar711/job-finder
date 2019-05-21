@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/user")
 public class UserController {
 
+    @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = {"Origin", "X-Requested-With", "Content-Type", "Accept", "Set-Cookie", "Access-Control-Allow-Origin", "CSRF-Token", "Access-Control-Allow-Credentials"}, allowCredentials = "true")
     @PostMapping("/auth")
     public ResponseEntity<String> loginAuthenticate(HttpServletRequest request, HttpServletResponse response, HttpEntity<String> httpEntity) {
         UserAuthenticationManager manager = new UserAuthenticationManager();
