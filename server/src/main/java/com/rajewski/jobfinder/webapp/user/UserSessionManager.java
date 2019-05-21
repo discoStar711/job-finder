@@ -24,4 +24,8 @@ public class UserSessionManager {
             return false;
         }
     }
+
+    public static UserSession getSession(String sessionId) {
+        return sessions.get(sessionId);
+    }
 }
