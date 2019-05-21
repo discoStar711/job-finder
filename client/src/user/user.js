@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
+import UserDetails from './userDetails';
 
 class User extends Component {
 
