@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios/index';
 
+const AUTH_API_URL = 'http://localhost:8080/user/auth';
+
 class LoginForm extends Component {
 
     constructor(props) {
@@ -33,6 +35,21 @@ class LoginForm extends Component {
         const username = this.state.username;
         const password = this.state.password;
         const token = this.state.csrfToken;
+        this.postForm(username, password);
+    }
+
+    postForm(username, password) {
+        axios({
+            method: 'post',
+            url: AUTH_API_URL,
+            data: {
+                username: username,
+                password: password
+            },
+            withCredentials: true
+        })
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     render() {
