@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,6 +38,18 @@ public class UserAuthenticationManager {
 
                     UserSessionManager userSessionManager = new UserSessionManager();
                     userSessionManager.registerSession(sessionId, userSession);
+
+                    Cookie sessionCookie = new Cookie("SESSION", sessionId);
+                    sessionCookie.setPath("/");
+                    sessionCookie.setMaxAge(10000);
+                    sessionCookie.setHttpOnly(true);
+
+                    Cookie csrfTokenCookie = new Cookie("CSRF-Token", sessionCsrfToken);
+                    csrfTokenCookie.setPath("/");
+                    csrfTokenCookie.setMaxAge(10000);
+
+                    response.addCookie(sessionCookie);
+                    response.addCookie(csrfTokenCookie);
 
                     responseEntity = new ResponseEntity<>(HttpStatus.OK);
                 } else {
