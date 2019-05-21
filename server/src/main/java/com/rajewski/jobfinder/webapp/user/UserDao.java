@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 public class UserDao {
 
@@ -27,5 +28,23 @@ public class UserDao {
         String query = "INSERT INTO user (name, password, email) VALUES('" + username + "','" + encodedPassword + "','" + email + "');";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         jdbcTemplate.execute(query);
+    }
+
+    public User findByUsername(String username) {
+        String query = "SELECT id, password FROM user WHERE name = '" + username + "';";
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        Map<String, Object> map = jdbcTemplate.queryForMap(query);
+
+        return User.mapToObject(map);
+    }
+
+    public User findUserById(Integer id) {
+        String query = "SELECT name, email FROM user WHERE id = " + id + ";";
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        Map<String, Object> map = jdbcTemplate.queryForMap(query);
+
+        return User.mapToObject(map);
     }
 }
