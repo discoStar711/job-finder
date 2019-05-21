@@ -36,8 +36,7 @@ public class UserDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         Map<String, Object> map = jdbcTemplate.queryForMap(query);
 
-        User user = User.mapToObject(map);
-        return user;
+        return User.mapToObject(map);
     }
 
     public User findUserById(Integer id) {
@@ -45,8 +44,7 @@ public class UserDao {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         Map<String, Object> map = jdbcTemplate.queryForMap(query);
-        
-        User user = User.mapToObject(map);
-        return user;
+
+        return User.mapToObject(map);
     }
 }
