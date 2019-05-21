@@ -32,7 +32,10 @@ public class UserManager {
             Cookie sessionId = getCookie(cookies, "SESSION");
 
             if (UserSessionManager.isSessionValid(sessionId.getValue(), sessionCsrfToken.getValue())) {
-                
+
+                Integer userId = UserSessionManager.getSession(sessionId.getValue()).getUserId();
+                UserDao userDao = new UserDao();
+                return userDao.findUserById(userId);
             } else {
                 return new User("Access denied.", "Access denied.");
             }

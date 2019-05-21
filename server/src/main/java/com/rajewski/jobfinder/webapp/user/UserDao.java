@@ -39,4 +39,14 @@ public class UserDao {
         User user = User.mapToObject(map);
         return user;
     }
+
+    public User findUserById(Integer id) {
+        String query = "SELECT name, email FROM user WHERE id = " + id + ";";
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        Map<String, Object> map = jdbcTemplate.queryForMap(query);
+        
+        User user = User.mapToObject(map);
+        return user;
+    }
 }
