@@ -4,7 +4,7 @@ import './css/bootstrap.min.css';
 import './css/custom.css';
 import JobFinder from './find/jobFinder';
 import RegistrationForm from './registration/registrationForm';
-import LoginForm from './form/loginForm';
+import LoginForm from './login/loginForm';
 import User from './user/user';
 import Navbar from './nav/navbar';
 import { Route, Switch } from "react-router-dom";
