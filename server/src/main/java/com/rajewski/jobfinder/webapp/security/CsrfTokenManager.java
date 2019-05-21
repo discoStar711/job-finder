@@ -13,6 +13,10 @@ public class CsrfTokenManager {
         return token;
     }
 
+    public String getSessionToken() {
+        return createToken();
+    }
+
     private String createToken() {
         CsrfToken csrfToken = new CsrfToken();
         String token = csrfToken.create();
