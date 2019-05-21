@@ -29,7 +29,7 @@ class UserDetails extends Component {
             withCredentials: true
         })
             .then(response => {
-                const fetchedData = response.data[0];
+                const fetchedData = response.data;
                 this.setState({
                     username: fetchedData.username,
                     email: fetchedData.email
