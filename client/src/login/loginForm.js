@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios/index';
+import Cookies from 'js-cookie';
 
 const AUTH_API_URL = 'http://localhost:8080/user/auth';
 
