@@ -3,7 +3,7 @@ import './css/bootstrap-reboot.min.css';
 import './css/bootstrap.min.css';
 import './css/custom.css';
 import JobFinder from './find/jobFinder';
-import RegistrationForm from './form/registrationForm';
+import RegistrationForm from './registration/registrationForm';
 import LoginForm from './form/loginForm';
 import User from './user/user';
 import Navbar from './nav/navbar';
