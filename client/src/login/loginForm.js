@@ -10,12 +10,48 @@ class LoginForm extends Component {
             csrfToken: '',
             isAuthenticated: false
         };
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+
+    handleUsernameChange(event) {
+        this.setState({
+            username: event.target.value
+        });
+    }
+
+    handlePasswordChange(event) {
+        this.setState({
+            password: event.target.value
+        });
     }
 
     render() {
         return (
-            <form>
-
+            <form
+                onSubmit={}
+                className=""
+            >
+                <input
+                    onChange={this.handleUsernameChange}
+                    value={this.state.username}
+                    className="form-control"
+                    type="text"
+                    placeholder="Username"
+                />
+                <input
+                    onChange={this.handlePasswordChange}
+                    value={this.state.password}
+                    className="form-control"
+                    type="password"
+                    placeholder="Password"
+                />
+                <button
+                    type="submit"
+                    className="btn submit-search-form"
+                >
+                    Login
+                </button>
             </form>
         );
     }
