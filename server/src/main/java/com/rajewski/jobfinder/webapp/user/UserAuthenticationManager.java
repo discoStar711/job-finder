@@ -25,6 +25,9 @@ public class UserAuthenticationManager {
                 ObjectMapper mapper = new ObjectMapper();
                 User user = mapper.readValue(credentials, User.class);
 
+                UserDao userDao = new UserDao();
+                User retrievedDbUser = userDao.findByUsername(user.getUsername());
+
             } catch (Exception ex) {
                 ex.printStackTrace();
                 responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
