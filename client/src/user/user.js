@@ -7,6 +7,16 @@ class User extends Component {
         super(props);
     }
 
+    hasPermission() {
+        const sessionCsrfToken = Cookies.get('CSRF-Token');
+
+        if (sessionCsrfToken !== '' && sessionCsrfToken !== undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         return (
             <div></div>
