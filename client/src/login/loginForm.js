@@ -76,7 +76,16 @@ class LoginForm extends Component {
             },
             withCredentials: true
         })
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response);
+                const sessionCsrfToken = Cookies.get('CSRF-Token');
+
+                if (sessionCsrfToken !== '' && sessionCsrfToken !== undefined) {
+                    this.setState({
+                        isAuthenticated: true
+                    });
+                }
+            })
             .catch(error => console.log(error));
     }
 
