@@ -91,33 +91,37 @@ class LoginForm extends Component {
     }
 
     render() {
-        return (
-            <form
-                onSubmit={this.handleFormSubmit}
-                className=""
-            >
-                <input
-                    onChange={this.handleUsernameChange}
-                    value={this.state.username}
-                    className="form-control"
-                    type="text"
-                    placeholder="Username"
-                />
-                <input
-                    onChange={this.handlePasswordChange}
-                    value={this.state.password}
-                    className="form-control"
-                    type="password"
-                    placeholder="Password"
-                />
-                <button
-                    type="submit"
-                    className="btn submit-search-form"
+        if (this.state.isAuthenticated) {
+            return ( <Redirect to="/account"/> );
+        } else {
+            return (
+                <form
+                    onSubmit={this.handleFormSubmit}
+                    className=""
                 >
-                    Login
-                </button>
-            </form>
-        );
+                    <input
+                        onChange={this.handleUsernameChange}
+                        value={this.state.username}
+                        className="form-control"
+                        type="text"
+                        placeholder="Username"
+                    />
+                    <input
+                        onChange={this.handlePasswordChange}
+                        value={this.state.password}
+                        className="form-control"
+                        type="password"
+                        placeholder="Password"
+                    />
+                    <button
+                        type="submit"
+                        className="btn submit-search-form"
+                    >
+                        Login
+                    </button>
+                </form>
+            );
+        }
     }
 }
 
