@@ -22,7 +22,9 @@ class LoginForm extends Component {
     }
 
     componentDidMount() {
-        
+        if (!this.hasLoginCsrfToken()) {
+            this.getCsrfToken();
+        }
     }
 
     handleUsernameChange(event) {
