@@ -24,4 +24,10 @@ public class UserController {
         UserManager manager = new UserManager();
         manager.save(httpEntity);
     }
+
+    @PostMapping("/details")
+    public User getUser(HttpServletRequest request) {
+        UserManager userManager = new UserManager();
+        return userManager.get(request);
+    }
 }
