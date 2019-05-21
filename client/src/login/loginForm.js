@@ -100,6 +100,16 @@ class LoginForm extends Component {
         }
     }
 
+    hasLoginCsrfToken() {
+        const csrfToken = this.state.csrfToken;
+
+        if (csrfToken !== '' && csrfToken !== undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         if (this.state.isAuthenticated || this.hasSessionCsrfToken()) {
             return ( <Redirect to="/account"/> );
