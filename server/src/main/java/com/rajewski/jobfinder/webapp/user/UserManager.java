@@ -29,6 +29,13 @@ public class UserManager {
 
         if (headerCsrfToken.equals(sessionCsrfToken.getValue())) {
 
+            Cookie sessionId = getCookie(cookies, "SESSION");
+
+            if (UserSessionManager.isSessionValid(sessionId.getValue(), sessionCsrfToken.getValue())) {
+                
+            } else {
+                return new User("Access denied.", "Access denied.");
+            }
         } else {
             return new User("Access denied.", "Access denied.");
         }
