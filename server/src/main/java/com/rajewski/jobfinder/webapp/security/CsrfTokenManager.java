@@ -7,6 +7,12 @@ public class CsrfTokenManager {
 
     private static Set<String> loginCsrfTokens = new HashSet<>();
 
+    public String getLoginToken() {
+        String token = createToken();
+        loginCsrfTokens.add(token);
+        return token;
+    }
+
     private String createToken() {
         CsrfToken csrfToken = new CsrfToken();
         String token = csrfToken.create();
