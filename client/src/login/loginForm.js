@@ -22,15 +22,7 @@ class LoginForm extends Component {
     }
 
     componentDidMount() {
-        const sessionCsrfToken = Cookies.get('CSRF-Token');
-
-        if (sessionCsrfToken !== '' && sessionCsrfToken !== undefined) {
-            this.setState({
-                isAuthenticated: true
-            });
-        } else {
-            this.getCsrfToken();
-        }
+        
     }
 
     handleUsernameChange(event) {
