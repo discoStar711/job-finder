@@ -3,6 +3,7 @@ import axios from 'axios/index';
 import Cookies from 'js-cookie';
 
 const AUTH_API_URL = 'http://localhost:8080/user/auth';
+const CSRF_API_URL = 'http://localhost:8080/csrfLogin';
 
 class LoginForm extends Component {
 
@@ -21,7 +22,7 @@ class LoginForm extends Component {
 
     componentDidMount() {
         const sessionCsrfToken = Cookies.get('CSRF-Token');
-        
+
         if (sessionCsrfToken !== '' && sessionCsrfToken !== undefined) {
             this.setState({
                 isAuthenticated: true
@@ -52,6 +53,14 @@ class LoginForm extends Component {
     }
 
     getCsrfToken() {
+        axios.get(CSRF_API_URL)
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    csrfToken: response.data
+                });
+            })
+            .catch(error => console.log(error));
     }
 
     postForm(username, password) {
