@@ -114,7 +114,6 @@ class LoginForm extends Component {
         if (this.state.isAuthenticated || this.hasSessionCsrfToken()) {
             return ( <Redirect to="/account"/> );
         } else {
-            this.getCsrfToken();
             return (
                 <form
                     onSubmit={this.handleFormSubmit}
