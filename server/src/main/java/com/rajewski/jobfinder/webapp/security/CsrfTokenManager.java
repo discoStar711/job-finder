@@ -22,4 +22,12 @@ public class CsrfTokenManager {
         String token = csrfToken.create();
         return token;
     }
+
+    public boolean containsLoginCsrfToken(String token) {
+        if (loginCsrfTokens.contains(token)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
