@@ -49,7 +49,7 @@ class LoginForm extends Component {
         const username = this.state.username;
         const password = this.state.password;
         const token = this.state.csrfToken;
-        this.postForm(username, password);
+        this.postForm(username, password, token);
     }
 
     getCsrfToken() {
@@ -63,13 +63,16 @@ class LoginForm extends Component {
             .catch(error => console.log(error));
     }
 
-    postForm(username, password) {
+    postForm(username, password, csrfToken) {
         axios({
             method: 'post',
             url: AUTH_API_URL,
             data: {
                 username: username,
                 password: password
+            },
+            headers: {
+                'CSRF-Token': csrfToken
             },
             withCredentials: true
         })
