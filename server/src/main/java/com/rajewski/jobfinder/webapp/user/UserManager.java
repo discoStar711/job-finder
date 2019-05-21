@@ -3,6 +3,9 @@ package com.rajewski.jobfinder.webapp.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 public class UserManager {
 
     public void save(HttpEntity<String> httpEntity) {
@@ -16,5 +19,12 @@ public class UserManager {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public User get(HttpServletRequest request) {
+
+        String headerCsrfToken = request.getHeader("CSRF-Token");
+        Cookie[] cookies = request.getCookies();
+        Cookie sessionCsrfToken = getCookie(cookies, "CSRF-Token");
     }
 }
