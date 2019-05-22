@@ -29,7 +29,7 @@ public class UserManager {
 
         if (headerCsrfToken.equals(sessionCsrfToken.getValue())) {
 
-            Cookie sessionId = getCookie(cookies, "SESSION");
+            Cookie sessionId = getCookie(cookies, "JSESSIONID");
 
             if (UserSessionManager.isSessionValid(sessionId.getValue(), sessionCsrfToken.getValue())) {
 
