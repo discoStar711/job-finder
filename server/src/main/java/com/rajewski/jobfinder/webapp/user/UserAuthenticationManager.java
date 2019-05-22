@@ -39,16 +39,10 @@ public class UserAuthenticationManager {
                     UserSessionManager userSessionManager = new UserSessionManager();
                     userSessionManager.registerSession(sessionId, userSession);
 
-                    Cookie sessionCookie = new Cookie("SESSION", sessionId);
-                    sessionCookie.setPath("/");
-                    sessionCookie.setMaxAge(10000);
-                    sessionCookie.setHttpOnly(true);
-
                     Cookie csrfTokenCookie = new Cookie("CSRF-Token", sessionCsrfToken);
                     csrfTokenCookie.setPath("/");
                     csrfTokenCookie.setMaxAge(10000);
-
-                    response.addCookie(sessionCookie);
+                    
                     response.addCookie(csrfTokenCookie);
 
                     responseEntity = new ResponseEntity<>(HttpStatus.OK);
