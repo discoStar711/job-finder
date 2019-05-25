@@ -23,7 +23,7 @@ public class CsrfTokenManager {
         return token;
     }
 
-    public boolean containsLoginCsrfToken(String token) {
+    public static boolean containsLoginCsrfToken(String token) {
         if (loginCsrfTokens.contains(token)) {
             return true;
         } else {
