@@ -15,10 +15,9 @@ public class UserLoginAuthenticationToken extends AbstractAuthenticationToken {
         this.credentials = credentials;
     }
 
-    public UserLoginAuthenticationToken(String csrfToken, String credentials, boolean isAuthenticated) {
+    public UserLoginAuthenticationToken(User user, boolean isAuthenticated) {
         super(null);
-        this.csrfToken = csrfToken;
-        this.credentials = credentials;
+        this.user = user;
         setAuthenticated(isAuthenticated);
     }
 
