@@ -24,7 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/find/**").permitAll()
                 .antMatchers("/user/details").permitAll()
                 .antMatchers("/user/new").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and()
+                .addFilterBefore(getUserLoginFilter(), AnonymousAuthenticationFilter.class);
     }
 
     @Override
