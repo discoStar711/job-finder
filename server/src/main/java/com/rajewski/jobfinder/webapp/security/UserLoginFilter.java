@@ -1,6 +1,7 @@
 package com.rajewski.jobfinder.webapp.security;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -22,5 +23,11 @@ public class UserLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         String csrfToken = request.getHeader("CSRF-Token");
         String credentials = IOUtils.toString(request.getReader());
+
+        if (csrfToken != null && !csrfToken.isEmpty()) {
+            
+        } else {
+            throw new AuthenticationServiceException("Could not authenticate CSRF token.");
+        }
     }
 }
