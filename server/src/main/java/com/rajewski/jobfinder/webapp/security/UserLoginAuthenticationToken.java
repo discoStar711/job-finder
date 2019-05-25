@@ -4,8 +4,14 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 public class UserLoginAuthenticationToken extends AbstractAuthenticationToken {
 
-    public UserLoginAuthenticationToken(String csrfToken, String credentials) {
+    private String csrfToken;
+
+    public UserLoginAuthenticationToken() {
         super(null);
+    }
+
+    public String getCsrfToken() {
+        return csrfToken;
     }
 
     @Override
