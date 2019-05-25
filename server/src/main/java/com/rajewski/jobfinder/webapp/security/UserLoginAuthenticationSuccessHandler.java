@@ -33,5 +33,7 @@ public class UserLoginAuthenticationSuccessHandler implements AuthenticationSucc
         csrfTokenCookie.setPath("/");
         csrfTokenCookie.setMaxAge(10000);
         response.addCookie(csrfTokenCookie);
+
+        request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
     }
 }
