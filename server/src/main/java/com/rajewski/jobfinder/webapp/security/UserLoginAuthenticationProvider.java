@@ -48,7 +48,7 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
                 User retrievedDbUser = userDao.findByUsername(user.getUsername());
 
                 if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword())) {
-                    authenticationPrincipal = new UserLoginAuthenticationToken(user, true);
+                    authenticationPrincipal = new UserLoginAuthenticationToken(retrievedDbUser, true);
                 } else {
                     authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
                 }
