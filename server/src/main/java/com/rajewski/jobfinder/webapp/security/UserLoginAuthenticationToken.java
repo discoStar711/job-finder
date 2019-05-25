@@ -7,8 +7,10 @@ public class UserLoginAuthenticationToken extends AbstractAuthenticationToken {
     private String csrfToken;
     private String credentials;
 
-    public UserLoginAuthenticationToken() {
+    public UserLoginAuthenticationToken(String csrfToken, String credentials) {
         super(null);
+        this.csrfToken = csrfToken;
+        this.credentials = credentials;
     }
 
     public String getCsrfToken() {
