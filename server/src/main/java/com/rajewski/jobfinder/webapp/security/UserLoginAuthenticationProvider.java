@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rajewski.jobfinder.webapp.user.User;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -35,6 +36,17 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
 
         if (CsrfTokenManager.containsLoginCsrfToken(csrfToken)) {
 
+            UserLoginAuthenticationToken authenticationPrincipal;
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                User user = mapper.readValue(credentials, User.class);
+
+            } catch (Exception ex) {
+
+                ex.printStackTrace();
+                User user = new User();
+                authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
+            }
         } else {
             User user = new User();
             return new UserLoginAuthenticationToken(user, false);
