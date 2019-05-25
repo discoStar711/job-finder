@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class UserLoginAuthenticationProvider implements AuthenticationProvider {
 
@@ -45,12 +46,18 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
                 UserDao userDao = new UserDao();
                 User retrievedDbUser = userDao.findByUsername(user.getUsername());
 
+                if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword())) {
+                    authenticationPrincipal = new UserLoginAuthenticationToken(user, true);
+                } else {
+                    authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
+                }
             } catch (Exception ex) {
 
                 ex.printStackTrace();
                 User user = new User();
                 authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
             }
+            return authenticationPrincipal;
         } else {
             User user = new User();
             return new UserLoginAuthenticationToken(user, false);
