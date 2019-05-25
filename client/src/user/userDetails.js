@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const USER_API_URL = 'http://localhost:8080/user/details';
 
@@ -15,17 +14,13 @@ class UserDetails extends Component {
     }
 
     componentDidMount() {
-        const sessionCsrfToken = Cookies.get('CSRF-Token');
-        this.fetchUserDetails(sessionCsrfToken);
+        this.fetchUserDetails();
     }
 
-    fetchUserDetails(csrfToken) {
+    fetchUserDetails() {
         axios({
             method: 'post',
             url: USER_API_URL,
-            headers: {
-                'CSRF-Token': csrfToken
-            },
             withCredentials: true
         })
             .then(response => {
