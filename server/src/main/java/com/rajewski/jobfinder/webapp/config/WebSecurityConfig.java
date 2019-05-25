@@ -27,6 +27,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .authenticationProvider(new UserLoginAuthenticationProvider());
+    }
+
     @Bean
     public UserLoginFilter getUserLoginFilter() {
         UserLoginFilter filter = new UserLoginFilter(new AntPathRequestMatcher("/user/auth"));
