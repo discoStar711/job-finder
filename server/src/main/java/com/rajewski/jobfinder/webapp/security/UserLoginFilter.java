@@ -26,6 +26,7 @@ public class UserLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         if (csrfToken != null && !csrfToken.isEmpty()) {
             UserLoginAuthenticationToken token = new UserLoginAuthenticationToken(csrfToken, credentials);
+            return getAuthenticationManager().authenticate(token);
         } else {
             throw new AuthenticationServiceException("Could not authenticate CSRF token.");
         }
