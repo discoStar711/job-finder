@@ -1,6 +1,8 @@
 package com.rajewski.jobfinder.webapp.security;
 
 import com.rajewski.jobfinder.webapp.user.User;
+import com.rajewski.jobfinder.webapp.user.UserSession;
+import com.rajewski.jobfinder.webapp.user.UserSessionManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -17,6 +19,14 @@ public class UserLoginAuthenticationSuccessHandler implements AuthenticationSucc
         UserLoginAuthenticationToken authenticationPrincipal = (UserLoginAuthenticationToken) authentication;
         User authenticatedUser = authenticationPrincipal.getUser();
         Integer userId = authenticatedUser.getId();
+
+        CsrfTokenManager csrfTokenManager = new CsrfTokenManager();
+        String sessionCsrfToken = csrfTokenManager.getSessionToken();
+        UserSession userSession = new UserSession(userId, sessionCsrfToken);
+        String sessionId = request.getSession().getId();
+
+        UserSessionManager userSessionManager = new UserSessionManager();
+        userSessionManager.registerSession(sessionId, userSession);
 
     }
 }
