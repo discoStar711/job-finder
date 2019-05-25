@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.security;
 
+import com.rajewski.jobfinder.webapp.user.User;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -31,5 +32,12 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
 
         String csrfToken = token.getCsrfToken();
         String credentials = token.getCredentials();
+
+        if (CsrfTokenManager.containsLoginCsrfToken(csrfToken)) {
+
+        } else {
+            User user = new User();
+            return new UserLoginAuthenticationToken(user, false);
+        }
     }
 }
