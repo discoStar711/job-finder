@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.security.api;
 
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -23,6 +24,12 @@ public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter {
         Cookie[] cookies = request.getCookies();
         String sessionId = getCookie(cookies, "JSESSIONID").getValue();
         String csrfToken = getCookie(cookies, "CSRF-Token").getValue();
+
+        if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty()) {
+            
+        } else {
+            throw new AuthenticationServiceException("Could not authenticate cookies.");
+        }
     }
 
     private Cookie getCookie(Cookie[] cookies, String name) {
