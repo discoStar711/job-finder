@@ -11,7 +11,7 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         if (supports(authentication.getClass())) {
-            
+            return validateCredentials((UserLoginAuthenticationToken)authentication);
         } else {
             throw new AuthenticationServiceException("Could not authenticate.");
         }
@@ -25,5 +25,11 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
         } else {
             return false;
         }
+    }
+
+    private UserLoginAuthenticationToken validateCredentials(UserLoginAuthenticationToken token) {
+
+        String csrfToken = token.getCsrfToken();
+        String credentials = token.getCredentials();
     }
 }
