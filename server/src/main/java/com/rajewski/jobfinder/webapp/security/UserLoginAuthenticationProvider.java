@@ -50,6 +50,7 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
                 if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword())) {
                     authenticationPrincipal = new UserLoginAuthenticationToken(retrievedDbUser, true);
                 } else {
+                    user = new User();
                     authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
                 }
             } catch (Exception ex) {
