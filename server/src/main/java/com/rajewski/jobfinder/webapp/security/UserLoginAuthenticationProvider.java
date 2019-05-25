@@ -2,6 +2,7 @@ package com.rajewski.jobfinder.webapp.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rajewski.jobfinder.webapp.user.User;
+import com.rajewski.jobfinder.webapp.user.UserDao;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -40,6 +41,9 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 User user = mapper.readValue(credentials, User.class);
+
+                UserDao userDao = new UserDao();
+                User retrievedDbUser = userDao.findByUsername(user.getUsername());
 
             } catch (Exception ex) {
 
