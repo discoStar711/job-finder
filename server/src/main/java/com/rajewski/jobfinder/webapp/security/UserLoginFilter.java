@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.security;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -19,5 +20,7 @@ public class UserLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
 
+        String csrfToken = request.getHeader("CSRF-Token");
+        String credentials = IOUtils.toString(request.getReader());
     }
 }
