@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.security;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rajewski.jobfinder.webapp.user.User;
 import com.rajewski.jobfinder.webapp.user.UserDao;
@@ -40,7 +41,7 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
 
             UserLoginAuthenticationToken authenticationPrincipal;
             try {
-                ObjectMapper mapper = new ObjectMapper();
+                ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 User user = mapper.readValue(credentials, User.class);
 
                 UserDao userDao = new UserDao();
