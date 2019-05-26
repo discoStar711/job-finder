@@ -32,7 +32,12 @@ class UserDetails extends Component {
                     email: fetchedData.email
                 });
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.setState({
+                    error: true
+                })
+            });
     }
 
     render() {
