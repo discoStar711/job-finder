@@ -13,6 +13,13 @@ public class ApiRequestAuthenticationToken extends AbstractAuthenticationToken {
         this.csrfToken = csrfToken;
     }
 
+    public ApiRequestAuthenticationToken(String sessionId, String csrfToken, boolean isAuthenticated) {
+        super(null);
+        this.sessionId = sessionId;
+        this.csrfToken = csrfToken;
+        setAuthenticated(isAuthenticated);
+    }
+
     public String getCsrfToken() {
         return csrfToken;
     }
