@@ -1,6 +1,8 @@
 package com.rajewski.jobfinder.webapp.config;
 
 import com.rajewski.jobfinder.webapp.security.*;
+import com.rajewski.jobfinder.webapp.security.api.ApiRequestAuthenticationSuccessHandler;
+import com.rajewski.jobfinder.webapp.security.api.ApiRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,6 +35,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .authenticationProvider(new UserLoginAuthenticationProvider());
+    }
+
+    @Bean
+    public ApiRequestFilter getApiRequestFilter() {
+        ApiRequestFilter filter = new ApiRequestFilter(new AntPathRequestMatcher("/user/details"));
+        filter.setAuthenticationManager(getAuthenticationManager());
+        filter.setAuthenticationSuccessHandler(new ApiRequestAuthenticationSuccessHandler());
+        return filter;
     }
 
     @Bean
