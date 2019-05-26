@@ -12,6 +12,6 @@ public class ApiRequestAuthenticationSuccessHandler implements AuthenticationSuc
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        
+        request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
     }
 }
