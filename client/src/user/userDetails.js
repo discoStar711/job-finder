@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const USER_API_URL = 'http://localhost:8080/user/details';
 
@@ -34,6 +35,7 @@ class UserDetails extends Component {
             })
             .catch(error => {
                 console.log(error);
+                Cookies.remove('CSRF-Token');
                 this.setState({
                     error: true
                 })
