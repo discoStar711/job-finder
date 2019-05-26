@@ -23,25 +23,12 @@ public class UserManager {
 
     public User get(HttpServletRequest request) {
 
-        String headerCsrfToken = request.getHeader("CSRF-Token");
         Cookie[] cookies = request.getCookies();
-        Cookie sessionCsrfToken = getCookie(cookies, "CSRF-Token");
+        Cookie sessionId = getCookie(cookies, "JSESSIONID");
 
-        if (headerCsrfToken.equals(sessionCsrfToken.getValue())) {
-
-            Cookie sessionId = getCookie(cookies, "SESSION");
-
-            if (UserSessionManager.isSessionValid(sessionId.getValue(), sessionCsrfToken.getValue())) {
-
-                Integer userId = UserSessionManager.getSession(sessionId.getValue()).getUserId();
-                UserDao userDao = new UserDao();
-                return userDao.findUserById(userId);
-            } else {
-                return new User("Access denied.", "Access denied.");
-            }
-        } else {
-            return new User("Access denied.", "Access denied.");
-        }
+        Integer userId = UserSessionManager.getSession(sessionId.getValue()).getUserId();
+        UserDao userDao = new UserDao();
+        return userDao.findUserById(userId);
     }
 
     private Cookie getCookie(Cookie[] cookies, String name) {

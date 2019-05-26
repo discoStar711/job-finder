@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -10,22 +11,19 @@ class UserDetails extends Component {
         super(props);
         this.state = {
             username: '',
-            email: ''
+            email: '',
+            error: false
         };
     }
 
     componentDidMount() {
-        const sessionCsrfToken = Cookies.get('CSRF-Token');
-        this.fetchUserDetails(sessionCsrfToken);
+        this.fetchUserDetails();
     }
 
-    fetchUserDetails(csrfToken) {
+    fetchUserDetails() {
         axios({
             method: 'post',
             url: USER_API_URL,
-            headers: {
-                'CSRF-Token': csrfToken
-            },
             withCredentials: true
         })
             .then(response => {
@@ -35,19 +33,35 @@ class UserDetails extends Component {
                     email: fetchedData.email
                 });
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                Cookies.remove('CSRF-Token');
+                this.setState({
+                    error: true
+                })
+            });
     }
 
     render() {
         const username = this.state.username;
         const email = this.state.email;
+        const error = this.state.error;
 
-        return (
-            <div>
-                <p>{username}</p>
-                <p>{email}</p>
-            </div>
-        );
+        if (!error) {
+            return (
+                <div>
+                    <p>{username}</p>
+                    <p>{email}</p>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p>Could not authenticate request.</p>
+                    <Link to="/login">Try to log in.</Link>
+                </div>
+            );
+        }
     }
 }
 
