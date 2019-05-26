@@ -1,6 +1,7 @@
 package com.rajewski.jobfinder.webapp.config;
 
 import com.rajewski.jobfinder.webapp.security.*;
+import com.rajewski.jobfinder.webapp.security.api.ApiRequestAuthenticationProvider;
 import com.rajewski.jobfinder.webapp.security.api.ApiRequestAuthenticationSuccessHandler;
 import com.rajewski.jobfinder.webapp.security.api.ApiRequestFilter;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
+                .authenticationProvider(new ApiRequestAuthenticationProvider())
                 .authenticationProvider(new UserLoginAuthenticationProvider());
     }
 
