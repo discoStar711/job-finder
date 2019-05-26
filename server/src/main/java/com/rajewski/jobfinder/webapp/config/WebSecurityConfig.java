@@ -25,10 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/csrfLogin").permitAll()
                 .antMatchers("/find/**").permitAll()
-                .antMatchers("/user/details").permitAll()
                 .antMatchers("/user/new").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .addFilterBefore(getApiRequestFilter(), AnonymousAuthenticationFilter.class)
                 .addFilterBefore(getUserLoginFilter(), AnonymousAuthenticationFilter.class);
     }
 
