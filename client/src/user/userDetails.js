@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const USER_API_URL = 'http://localhost:8080/user/details';
@@ -9,7 +10,8 @@ class UserDetails extends Component {
         super(props);
         this.state = {
             username: '',
-            email: ''
+            email: '',
+            error: false
         };
     }
 
@@ -36,13 +38,23 @@ class UserDetails extends Component {
     render() {
         const username = this.state.username;
         const email = this.state.email;
+        const error = this.state.error;
 
-        return (
-            <div>
-                <p>{username}</p>
-                <p>{email}</p>
-            </div>
-        );
+        if (!error) {
+            return (
+                <div>
+                    <p>{username}</p>
+                    <p>{email}</p>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p>Could not authenticate request.</p>
+                    <Link to="/login">Try to log in.</Link>
+                </div>
+            );
+        }
     }
 }
 
