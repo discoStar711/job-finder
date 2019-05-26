@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.security.api;
 
+import com.rajewski.jobfinder.webapp.user.UserSessionManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -11,7 +12,7 @@ public class ApiRequestAuthenticationProvider implements AuthenticationProvider 
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         if (supports(authentication.getClass())) {
-
+            return validateSession((ApiRequestAuthenticationToken)authentication);
         } else {
             throw new AuthenticationServiceException("Could not authenticate session or CSRF token.");
         }
@@ -24,6 +25,18 @@ public class ApiRequestAuthenticationProvider implements AuthenticationProvider 
             return true;
         } else {
             return false;
+        }
+    }
+    
+    private ApiRequestAuthenticationToken validateSession(ApiRequestAuthenticationToken token) {
+
+        String sessionId = token.getSessionId();
+        String csrfToken = token.getCsrfToken();
+
+        if (UserSessionManager.isSessionValid(sessionId, csrfToken)) {
+            return new ApiRequestAuthenticationToken(sessionId, csrfToken, true);
+        } else {
+            return new ApiRequestAuthenticationToken(sessionId, csrfToken, false);
         }
     }
 }
