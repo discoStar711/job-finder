@@ -19,9 +19,9 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/new")
-    public void saveUser(HttpEntity<String> httpEntity) {
+    public ResponseEntity<String> saveUser(HttpEntity<String> httpEntity) {
         UserManager manager = new UserManager();
-        manager.save(httpEntity);
+        return manager.save(httpEntity);
     }
 
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = {"Origin", "X-Requested-With", "Content-Type", "Accept", "Access-Control-Allow-Origin", "CSRF-Token", "Access-Control-Allow-Credentials"}, allowCredentials = "true")
