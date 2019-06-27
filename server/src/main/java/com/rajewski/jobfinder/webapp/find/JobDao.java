@@ -25,4 +25,12 @@ public class JobDao
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         return jdbcTemplate.queryForList(query);
     }
+
+    public List<Map<String, Object>> findAllJobProviders()
+    {
+        String query = "SELECT * FROM Provider";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        return jdbcTemplate.queryForList(query);
+    }
+
 }
