@@ -1,8 +1,11 @@
 package com.rajewski.jobfinder.webapp.find;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.util.List;
+import java.util.Map;
 
 public class JobDao
 {
@@ -14,5 +17,12 @@ public class JobDao
         dataSource.setUsername("root");
         dataSource.setPassword("");
         return dataSource;
+    }
+
+    public List<Map<String, Object>> findAllTechnologies()
+    {
+        String query = "SELECT * FROM Technology";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        return jdbcTemplate.queryForList(query);
     }
 }
