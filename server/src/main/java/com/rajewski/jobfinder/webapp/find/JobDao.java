@@ -33,4 +33,10 @@ public class JobDao
         return jdbcTemplate.queryForList(query);
     }
 
+    public List<Map<String, Object>> findAllPositions()
+    {
+        String query = "SELECT * FROM Position";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        return jdbcTemplate.queryForList(query);
+    }
 }
