@@ -47,6 +47,34 @@ public class JobDao
         return jdbcTemplate.queryForList(query);
     }
 
+    public void saveAll(List<GoogleJob> list)
+    {
+        for (GoogleJob job : list)
+        {
+            String insertIntoJob = "INSERT INTO job(title, url, description, experience_id, provider_id) VALUES" +
+                    BEGIN_PARENTHESES +
+                    QUOTE + escapeSingleQuote(job.getTitle()) + QUOTE + COMMA +
+                    QUOTE + job.getUrl() + QUOTE + COMMA +
+                    QUOTE + escapeSingleQuote(job.getDescription()) + QUOTE + COMMA +
+                    job.getPositionId() + COMMA +
+                    job.getProviderId() +
+                    END_PARENTHESES;
+
+            String insertIntoJobTechnology = "INSERT INTO JobTechnology(job_id, technology_id) VALUES" +
+                    BEGIN_PARENTHESES +
+                    "@jobId" + COMMA +
+                    job.getTechnologyId() +
+                    END_PARENTHESES;
+
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+            jdbcTemplate.execute(START_TRANSACTION);
+            jdbcTemplate.execute(insertIntoJob);
+            jdbcTemplate.execute("SET @jobId = LAST_INSERT_ID();");
+            jdbcTemplate.execute(insertIntoJobTechnology);
+            jdbcTemplate.execute(COMMIT);
+        }
+    }
+
     private String escapeSingleQuote(String text)
     {
         return text.replace("'", "''");
