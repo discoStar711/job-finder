@@ -10,4 +10,10 @@ public class JobFinder
         JobDao jobDao = new JobDao();
         return jobDao.findAllJobProviders();
     }
+
+    private List<Map<String, Object>> getAllPositions()
+    {
+        JobDao jobDao = new JobDao();
+        return jobDao.findAllPositions();
+    }
 }
