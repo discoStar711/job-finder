@@ -9,6 +9,13 @@ import java.util.Map;
 
 public class JobDao
 {
+    private static final String START_TRANSACTION = "START TRANSACTION";
+    private static final String COMMIT = "COMMIT";
+    private static final String BEGIN_PARENTHESES = "(";
+    private static final String END_PARENTHESES = ")";
+    private static final String QUOTE = "'";
+    private static final String COMMA = ",";
+
     public DataSource dataSource()
     {
         BasicDataSource dataSource = new BasicDataSource();
