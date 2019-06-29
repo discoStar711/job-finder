@@ -46,4 +46,9 @@ public class JobDao
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
         return jdbcTemplate.queryForList(query);
     }
+
+    private String escapeSingleQuote(String text)
+    {
+        return text.replace("'", "''");
+    }
 }
