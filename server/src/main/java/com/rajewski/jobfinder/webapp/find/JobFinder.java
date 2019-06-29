@@ -16,4 +16,10 @@ public class JobFinder
         JobDao jobDao = new JobDao();
         return jobDao.findAllPositions();
     }
+
+    private List<Map<String, Object>> getAllTechnologies()
+    {
+        JobDao jobDao = new JobDao();
+        return jobDao.findAllTechnologies();
+    }
 }
