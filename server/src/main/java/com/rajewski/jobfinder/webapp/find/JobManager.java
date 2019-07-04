@@ -9,6 +9,12 @@ public class JobManager
     private static final long HOUR = 1000 * 60 * 60;
     private static final long TWELVE_HOURS = 12 * HOUR;
 
+    public void fetchJobs()
+    {
+        scheduleNextJobFetch();
+        fetch();
+    }
+
     private void scheduleNextJobFetch()
     {
         Timer timer = new Timer();
@@ -17,12 +23,12 @@ public class JobManager
             @Override
             public void run()
             {
-                
+                fetchJobs();
             }
         }, TWELVE_HOURS);
     }
 
-    private void find()
+    private void fetch()
     {
         try
         {
