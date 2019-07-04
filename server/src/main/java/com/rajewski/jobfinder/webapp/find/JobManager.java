@@ -4,6 +4,9 @@ import java.util.List;
 
 public class JobManager
 {
+    private static final long HOUR = 1000 * 60 * 60;
+    private static final long TWELVE_HOURS = 12 * HOUR;
+
     private void find()
     {
         try
