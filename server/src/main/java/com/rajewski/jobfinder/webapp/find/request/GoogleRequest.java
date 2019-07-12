@@ -22,4 +22,18 @@ public class GoogleRequest
         this.position = position;
         this.technology = technology;
     }
+
+    private String buildApiRequestUrl(String providerUrl, String position, String technology)
+    {
+        return API_URL + API_KEY + "&" + ID +
+                "&q=" +
+                "site:" +
+                providerUrl +
+                "+" +
+                position +
+                "+" +
+                technology +
+                "&dateRestrict=d8" +
+                "&gl=uk";
+    }
 }
