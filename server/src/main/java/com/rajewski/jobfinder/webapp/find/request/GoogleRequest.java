@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.find.request;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class GoogleRequest
@@ -33,6 +34,9 @@ public class GoogleRequest
         String technologyName = (String) technology.get("name");
 
         String apiRequestUrl = buildApiRequestUrl(providerUrl, positionName, technologyName);
+
+        Map<String, Object> result = new HashMap<>();
+        return result;
     }
 
     private String buildApiRequestUrl(String providerUrl, String position, String technology)
