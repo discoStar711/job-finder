@@ -1,5 +1,9 @@
 package com.rajewski.jobfinder.webapp.find.request;
 
+import com.rajewski.jobfinder.webapp.find.exception.GoogleFetchException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +40,20 @@ public class GoogleRequest
         String apiRequestUrl = buildApiRequestUrl(providerUrl, positionName, technologyName);
 
         Map<String, Object> result = new HashMap<>();
+        try
+        {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> apiResponse = restTemplate.getForEntity(apiRequestUrl, String.class, "");
+
+            result.put("result", apiResponse.getBody());
+            result.put("provider_id", providerId);
+            result.put("experience_id", positionId);
+            result.put("technology_id", technologyId);
+        }
+        catch (Exception ex)
+        {
+            throw new GoogleFetchException(ex);
+        }
         return result;
     }
 
