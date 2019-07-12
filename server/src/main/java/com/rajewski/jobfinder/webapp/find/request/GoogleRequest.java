@@ -23,6 +23,11 @@ public class GoogleRequest
         this.technology = technology;
     }
 
+    public Map<String, Object> fetch() throws Exception
+    {
+
+    }
+
     private String buildApiRequestUrl(String providerUrl, String position, String technology)
     {
         return API_URL + API_KEY + "&" + ID +
