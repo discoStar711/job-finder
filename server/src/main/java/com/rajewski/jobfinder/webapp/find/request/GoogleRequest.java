@@ -25,7 +25,14 @@ public class GoogleRequest
 
     public Map<String, Object> fetch() throws Exception
     {
+        Integer providerId = (Integer) jobProvider.get("id");
+        String providerUrl = (String) jobProvider.get("url");
+        Integer positionId = (Integer) position.get("id");
+        String positionName = (String) position.get("experience_level");
+        Integer technologyId = (Integer) technology.get("id");
+        String technologyName = (String) technology.get("name");
 
+        String apiRequestUrl = buildApiRequestUrl(providerUrl, positionName, technologyName);
     }
 
     private String buildApiRequestUrl(String providerUrl, String position, String technology)
