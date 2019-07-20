@@ -5,6 +5,11 @@ import java.util.Map;
 
 public class JobFinder
 {
+    public List<GoogleJob> find()
+    {
+
+    }
+
     private List<Map<String, Object>> getAllJobProviders()
     {
         JobDao jobDao = new JobDao();
