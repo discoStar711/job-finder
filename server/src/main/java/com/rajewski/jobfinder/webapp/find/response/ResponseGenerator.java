@@ -9,6 +9,14 @@ public class ResponseGenerator
     public List<GoogleJob> getGoogleJobList(List<Map<String, Object>> data)
     {
         List<GoogleJob> list = new LinkedList<>();
+
+        for (Map<String, Object> job : data)
+        {
+            String json = (String) job.get("result");
+            Integer positionId = (Integer) job.get("experience_id");
+            Integer providerId = (Integer) job.get("provider_id");
+            Integer technologyId = (Integer) job.get("technology_id");
+        }
         return list;
     }
 
