@@ -1,8 +1,6 @@
 package com.rajewski.jobfinder.webapp.find.request;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RequestGenerator
 {
@@ -13,6 +11,8 @@ public class RequestGenerator
     )
     {
         List<Map<String, Object>> responseList = new LinkedList<>();
+        Timer timer = new Timer();
+        int delayTimeCounter = 0;
 
         for (Map<String, Object> jobProvider : jobProviders)
         {
@@ -20,9 +20,17 @@ public class RequestGenerator
             {
                 for (Map<String, Object> technology : technologies)
                 {
-                    GoogleRequest request = new GoogleRequest(jobProvider, position, technology);
-                    Map<String, Object> response = request.fetch();
-                    responseList.add(response);
+                    delayTimeCounter += 1;
+                    timer.schedule(new TimerTask()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            GoogleRequest request = new GoogleRequest(jobProvider, position, technology);
+                            Map<String, Object> response = request.fetch();
+                            responseList.add(response);
+                        }
+                    }, 5000 * delayTimeCounter);
                 }
             }
         }
