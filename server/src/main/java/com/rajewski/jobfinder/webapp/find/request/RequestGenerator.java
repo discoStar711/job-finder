@@ -10,7 +10,7 @@ public class RequestGenerator
             List<Map<String, Object>> jobProviders,
             List<Map<String, Object>> positions,
             List<Map<String, Object>> technologies
-    ) throws Exception
+    )
     {
         List<Map<String, Object>> responseList = new LinkedList<>();
 

@@ -1,6 +1,5 @@
 package com.rajewski.jobfinder.webapp.find.request;
 
-import com.rajewski.jobfinder.webapp.find.exception.GoogleFetchException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,7 +27,7 @@ public class GoogleRequest
         this.technology = technology;
     }
 
-    public Map<String, Object> fetch() throws Exception
+    public Map<String, Object> fetch()
     {
         Integer providerId = (Integer) jobProvider.get("id");
         String providerUrl = (String) jobProvider.get("url");
@@ -52,7 +51,7 @@ public class GoogleRequest
         }
         catch (Exception ex)
         {
-            throw new GoogleFetchException(ex);
+            ex.printStackTrace();
         }
         return result;
     }

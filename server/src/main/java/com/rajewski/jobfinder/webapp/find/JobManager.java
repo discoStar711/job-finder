@@ -30,16 +30,9 @@ public class JobManager
 
     private void fetch()
     {
-        try
-        {
-            JobFinder finder = new JobFinder();
-            List<GoogleJob> jobs = finder.find();
-            save(jobs);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
+        JobFinder finder = new JobFinder();
+        List<GoogleJob> jobs = finder.find();
+        save(jobs);
     }
 
     private void save(List<GoogleJob> jobs)
