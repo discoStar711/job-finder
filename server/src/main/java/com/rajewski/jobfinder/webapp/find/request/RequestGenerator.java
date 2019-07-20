@@ -20,7 +20,9 @@ public class RequestGenerator
             {
                 for (Map<String, Object> technology : technologies)
                 {
-                    
+                    GoogleRequest request = new GoogleRequest(jobProvider, position, technology);
+                    Map<String, Object> response = request.fetch();
+                    responseList.add(response);
                 }
             }
         }
