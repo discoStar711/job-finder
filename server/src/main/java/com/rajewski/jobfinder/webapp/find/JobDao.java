@@ -53,9 +53,9 @@ public class JobDao
         {
             String insertIntoJob = "INSERT INTO job(title, url, description, experience_id, provider_id) VALUES" +
                     BEGIN_PARENTHESES +
-                    QUOTE + escapeSingleQuote(job.getTitle()) + QUOTE + COMMA +
+                    QUOTE + job.getTitle() + QUOTE + COMMA +
                     QUOTE + job.getUrl() + QUOTE + COMMA +
-                    QUOTE + escapeSingleQuote(job.getDescription()) + QUOTE + COMMA +
+                    QUOTE + job.getDescription() + QUOTE + COMMA +
                     job.getPositionId() + COMMA +
                     job.getProviderId() +
                     END_PARENTHESES;
@@ -73,10 +73,5 @@ public class JobDao
             jdbcTemplate.execute(insertIntoJobTechnology);
             jdbcTemplate.execute(COMMIT);
         }
-    }
-
-    private String escapeSingleQuote(String text)
-    {
-        return text.replace("'", "''");
     }
 }
