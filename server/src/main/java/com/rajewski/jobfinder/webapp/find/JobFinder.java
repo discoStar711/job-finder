@@ -7,7 +7,9 @@ public class JobFinder
 {
     public List<GoogleJob> find()
     {
-
+        List<Map<String, Object>> technologies = getAllTechnologies();
+        List<Map<String, Object>> jobProviders = getAllJobProviders();
+        List<Map<String, Object>> positions = getAllPositions();
     }
 
     private List<Map<String, Object>> getAllJobProviders()
