@@ -1,6 +1,7 @@
 package com.rajewski.jobfinder.webapp.find.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rajewski.jobfinder.webapp.find.response.google.GoogleItem;
 import com.rajewski.jobfinder.webapp.find.response.google.GoogleResponse;
 
 import java.util.LinkedList;
@@ -24,6 +25,18 @@ public class ResponseGenerator
             {
                 ObjectMapper mapper = new ObjectMapper();
                 GoogleResponse response = mapper.readValue(json, GoogleResponse.class);
+
+                GoogleItem[] items = response.getItems();
+
+                for (GoogleItem item : items)
+                {
+                    String title = escapeSingleQuote(item.getTitle());
+                    String description = escapeSingleQuote(item.getSnippet());
+                    String url = item.getLink();
+
+                    GoogleJob googleJob = new GoogleJob(title, description, url, positionId, providerId, technologyId);
+                    list.add(googleJob);
+                }
             }
             catch (Exception ex)
             {
