@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class ResponseGenerator
 {
-    public List<GoogleJob> getGoogleJobList(List<Map<String, Object>> data)
+    public List<GoogleJob> getGoogleJobList(List<Map<String, Object>> jobs)
     {
         List<GoogleJob> list = new LinkedList<>();
 
-        for (Map<String, Object> job : data)
+        for (Map<String, Object> job : jobs)
         {
             String json = (String) job.get("result");
             Integer positionId = (Integer) job.get("experience_id");
