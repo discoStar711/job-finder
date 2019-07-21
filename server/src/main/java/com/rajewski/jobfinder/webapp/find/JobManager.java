@@ -1,5 +1,7 @@
 package com.rajewski.jobfinder.webapp.find;
 
+import com.rajewski.jobfinder.webapp.find.response.GoogleJob;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
