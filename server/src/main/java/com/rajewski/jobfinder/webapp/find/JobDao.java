@@ -1,5 +1,6 @@
 package com.rajewski.jobfinder.webapp.find;
 
+import com.rajewski.jobfinder.webapp.find.response.GoogleJob;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
