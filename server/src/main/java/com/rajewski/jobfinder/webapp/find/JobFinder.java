@@ -1,6 +1,8 @@
 package com.rajewski.jobfinder.webapp.find;
 
 import com.rajewski.jobfinder.webapp.find.request.RequestGenerator;
+import com.rajewski.jobfinder.webapp.find.response.GoogleJob;
+import com.rajewski.jobfinder.webapp.find.response.ResponseGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,8 @@ public class JobFinder
         List<Map<String, Object>> positions = getAllPositions();
         RequestGenerator requestGenerator = new RequestGenerator();
         List<Map<String, Object>> requestedData = requestGenerator.getJobsFromGoogleBy(jobProviders, positions, technologies);
+        ResponseGenerator responseGenerator = new ResponseGenerator();
+        return responseGenerator.getGoogleJobList(requestedData);
     }
 
     private List<Map<String, Object>> getAllJobProviders()
