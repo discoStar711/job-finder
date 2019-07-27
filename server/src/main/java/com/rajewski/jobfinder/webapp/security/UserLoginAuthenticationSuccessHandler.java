@@ -31,7 +31,6 @@ public class UserLoginAuthenticationSuccessHandler implements AuthenticationSucc
 
         Cookie csrfTokenCookie = new Cookie("CSRF-Token", sessionCsrfToken);
         csrfTokenCookie.setPath("/");
-        csrfTokenCookie.setMaxAge(10000);
         response.addCookie(csrfTokenCookie);
 
         request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
