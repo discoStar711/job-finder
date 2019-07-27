@@ -5,7 +5,6 @@ import java.util.UUID;
 public class CsrfToken {
 
     public String create() {
-        String token = UUID.randomUUID().toString();
-        return token;
+        return UUID.randomUUID().toString();
     }
 }

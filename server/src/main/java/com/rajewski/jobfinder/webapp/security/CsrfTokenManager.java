@@ -19,15 +19,10 @@ public class CsrfTokenManager {
 
     private String createToken() {
         CsrfToken csrfToken = new CsrfToken();
-        String token = csrfToken.create();
-        return token;
+        return csrfToken.create();
     }
 
     public static boolean containsLoginCsrfToken(String token) {
-        if (loginCsrfTokens.contains(token)) {
-            return true;
-        } else {
-            return false;
-        }
+        return loginCsrfTokens.contains(token);
     }
 }

@@ -24,12 +24,7 @@ public class UserLoginAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> aClass) {
-
-        if (aClass.equals(UserLoginAuthenticationToken.class)) {
-            return true;
-        } else {
-            return false;
-        }
+        return aClass.equals(UserLoginAuthenticationToken.class);
     }
 
     private UserLoginAuthenticationToken validateCredentials(UserLoginAuthenticationToken token) {
