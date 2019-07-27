@@ -8,29 +8,36 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-public class UserManager {
-
-    public ResponseEntity<String> save(HttpEntity<String> httpEntity) {
+public class UserManager
+{
+    public ResponseEntity<String> save(HttpEntity<String> httpEntity)
+    {
         String userDetails = httpEntity.getBody();
-        try {
+        try
+        {
             ObjectMapper mapper = new ObjectMapper();
             User user = mapper.readValue(userDetails, User.class);
 
-            if (isRegistered(user)) {
+            if (isRegistered(user))
+            {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            } else {
+            }
+            else
+            {
                 UserDao userDao = new UserDao();
                 userDao.save(user);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public User get(HttpServletRequest request) {
-
+    public User get(HttpServletRequest request)
+    {
         Cookie[] cookies = request.getCookies();
         Cookie sessionId = getCookie(cookies, "JSESSIONID");
 
@@ -39,15 +46,19 @@ public class UserManager {
         return userDao.findUserById(userId);
     }
 
-    private boolean isRegistered(User userToRegister) {
+    private boolean isRegistered(User userToRegister)
+    {
         UserDao userDao = new UserDao();
         User retrievedUser = userDao.findByUsername(userToRegister.getUsername());
         return userToRegister.getUsername().equals(retrievedUser.getUsername());
     }
 
-    private Cookie getCookie(Cookie[] cookies, String name) {
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(name)) {
+    private Cookie getCookie(Cookie[] cookies, String name)
+    {
+        for (Cookie cookie : cookies)
+        {
+            if (cookie.getName().equals(name))
+            {
                 return cookie;
             }
         }

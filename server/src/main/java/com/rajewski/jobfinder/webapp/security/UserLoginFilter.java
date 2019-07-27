@@ -12,22 +12,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UserLoginFilter extends AbstractAuthenticationProcessingFilter {
-
-    public UserLoginFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+public class UserLoginFilter extends AbstractAuthenticationProcessingFilter
+{
+    public UserLoginFilter(RequestMatcher requiresAuthenticationRequestMatcher)
+    {
         super(requiresAuthenticationRequestMatcher);
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException
+    {
         String csrfToken = request.getHeader("CSRF-Token");
         String credentials = IOUtils.toString(request.getReader());
 
-        if (csrfToken != null && !csrfToken.isEmpty()) {
+        if (csrfToken != null && !csrfToken.isEmpty())
+        {
             UserLoginAuthenticationToken token = new UserLoginAuthenticationToken(csrfToken, credentials);
             return getAuthenticationManager().authenticate(token);
-        } else {
+        }
+        else
+        {
             throw new AuthenticationServiceException("Could not authenticate CSRF token.");
         }
     }

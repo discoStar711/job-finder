@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UserLoginAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
+public class UserLoginAuthenticationSuccessHandler implements AuthenticationSuccessHandler
+{
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException
+    {
         UserLoginAuthenticationToken authenticationPrincipal = (UserLoginAuthenticationToken) authentication;
         User authenticatedUser = authenticationPrincipal.getUser();
         Integer userId = authenticatedUser.getId();
