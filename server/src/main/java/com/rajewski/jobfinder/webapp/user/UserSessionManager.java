@@ -7,11 +7,6 @@ public class UserSessionManager
 {
     private static Map<String, UserSession> sessions = new HashMap<>();
 
-    public void registerSession(String sessionId, UserSession userSession)
-    {
-        sessions.put(sessionId, userSession);
-    }
-
     public static boolean isSessionValid(String sessionId, String csrfToken)
     {
         UserSession userSession = sessions.get(sessionId);
@@ -29,5 +24,17 @@ public class UserSessionManager
     public static UserSession getSession(String sessionId)
     {
         return sessions.get(sessionId);
+    }
+
+    public void registerSession(String sessionId, UserSession userSession)
+    {
+        sessions.put(sessionId, userSession);
+    }
+
+    public void updateCsrfToken(String sessionId, String csrfToken)
+    {
+        UserSession userSession = getSession(sessionId);
+        userSession.setSessionCsrfToken(csrfToken);
+        registerSession(sessionId, userSession);
     }
 }
