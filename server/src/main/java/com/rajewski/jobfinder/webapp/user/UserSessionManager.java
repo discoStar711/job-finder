@@ -18,14 +18,7 @@ public class UserSessionManager
 
         if (userSession != null)
         {
-            if (userSession.getSessionCsrfToken().equals(csrfToken))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return userSession.getSessionCsrfToken().equals(csrfToken);
         }
         else
         {
