@@ -27,7 +27,7 @@ public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter
     {
         Cookie[] cookies = request.getCookies();
         String sessionId = getCookie(cookies, "JSESSIONID").getValue();
-        String csrfToken = getCookie(cookies, "CSRF-Token").getValue();
+        String csrfToken = request.getHeader("CSRF-Token");
 
         if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty())
         {
@@ -36,7 +36,7 @@ public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter
         }
         else
         {
-            throw new AuthenticationServiceException("Could not authenticate cookies.");
+            throw new AuthenticationServiceException("Could not authenticate user.");
         }
     }
 
