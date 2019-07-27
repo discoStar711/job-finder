@@ -12,32 +12,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter {
-
-    public ApiRequestFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter
+{
+    public ApiRequestFilter(RequestMatcher requiresAuthenticationRequestMatcher)
+    {
         super(requiresAuthenticationRequestMatcher);
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-
+    public Authentication attemptAuthentication(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws AuthenticationException, IOException, ServletException
+    {
         Cookie[] cookies = request.getCookies();
         String sessionId = getCookie(cookies, "JSESSIONID").getValue();
         String csrfToken = getCookie(cookies, "CSRF-Token").getValue();
 
-        if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty()) {
-
+        if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty())
+        {
             ApiRequestAuthenticationToken token = new ApiRequestAuthenticationToken(sessionId, csrfToken);
             return getAuthenticationManager().authenticate(token);
-        } else {
+        }
+        else
+        {
             throw new AuthenticationServiceException("Could not authenticate cookies.");
         }
     }
 
-    private Cookie getCookie(Cookie[] cookies, String name) {
-
-        for (Cookie cookie : cookies) {
-            if (name.equals(cookie.getName())) {
+    private Cookie getCookie(Cookie[] cookies, String name)
+    {
+        for (Cookie cookie : cookies)
+        {
+            if (name.equals(cookie.getName()))
+            {
                 return cookie;
             }
         }

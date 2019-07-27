@@ -6,36 +6,38 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
-public class ApiRequestAuthenticationProvider implements AuthenticationProvider {
-
+public class ApiRequestAuthenticationProvider implements AuthenticationProvider
+{
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
-        if (supports(authentication.getClass())) {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException
+    {
+        if (supports(authentication.getClass()))
+        {
             return validateSession((ApiRequestAuthenticationToken)authentication);
-        } else {
+        }
+        else
+        {
             throw new AuthenticationServiceException("Could not authenticate session or CSRF token.");
         }
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
-
-        if (aClass.equals(ApiRequestAuthenticationToken.class)) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean supports(Class<?> aClass)
+    {
+        return aClass.equals(ApiRequestAuthenticationToken.class);
     }
     
-    private ApiRequestAuthenticationToken validateSession(ApiRequestAuthenticationToken token) {
-
+    private ApiRequestAuthenticationToken validateSession(ApiRequestAuthenticationToken token)
+    {
         String sessionId = token.getSessionId();
         String csrfToken = token.getCsrfToken();
 
-        if (UserSessionManager.isSessionValid(sessionId, csrfToken)) {
+        if (UserSessionManager.isSessionValid(sessionId, csrfToken))
+        {
             return new ApiRequestAuthenticationToken(sessionId, csrfToken, true);
-        } else {
+        }
+        else
+        {
             return new ApiRequestAuthenticationToken(sessionId, csrfToken, false);
         }
     }
