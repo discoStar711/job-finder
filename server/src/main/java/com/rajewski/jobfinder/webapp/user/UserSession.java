@@ -20,4 +20,9 @@ public class UserSession
     {
         return sessionCsrfToken;
     }
+
+    public void setSessionCsrfToken(String sessionCsrfToken)
+    {
+        this.sessionCsrfToken = sessionCsrfToken;
+    }
 }
