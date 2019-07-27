@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CsrfController {
-
+public class CsrfController
+{
     @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = {"Origin", "X-Requested-With", "Content-Type", "Accept",  "Access-Control-Allow-Origin"})
     @GetMapping("/csrfLogin")
-    public String getCsrfLoginToken() {
+    public String getCsrfLoginToken()
+    {
         CsrfTokenManager manager = new CsrfTokenManager();
         return manager.getLoginToken();
     }

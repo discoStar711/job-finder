@@ -7,9 +7,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.sql.DataSource;
 import java.util.Map;
 
-public class UserDao {
-
-    public DataSource dataSource() {
+public class UserDao
+{
+    public DataSource dataSource()
+    {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/jobs?serverTimezone=UTC");
@@ -18,7 +19,8 @@ public class UserDao {
         return dataSource;
     }
 
-    public void save(User user) {
+    public void save(User user)
+    {
         String username = user.getUsername();
         String password = user.getPassword();
         String email = user.getEmail();
@@ -30,7 +32,8 @@ public class UserDao {
         jdbcTemplate.execute(query);
     }
 
-    public User findByUsername(String username) {
+    public User findByUsername(String username)
+    {
         String query = "SELECT id, password FROM user WHERE name = '" + username + "';";
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
@@ -39,7 +42,8 @@ public class UserDao {
         return User.mapToObject(map);
     }
 
-    public User findUserById(Integer id) {
+    public User findUserById(Integer id)
+    {
         String query = "SELECT name, email FROM user WHERE id = " + id + ";";
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());

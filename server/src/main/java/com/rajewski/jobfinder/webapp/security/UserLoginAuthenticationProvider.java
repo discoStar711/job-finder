@@ -10,57 +10,63 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-public class UserLoginAuthenticationProvider implements AuthenticationProvider {
-
+public class UserLoginAuthenticationProvider implements AuthenticationProvider
+{
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
-        if (supports(authentication.getClass())) {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException
+    {
+        if (supports(authentication.getClass()))
+        {
             return validateCredentials((UserLoginAuthenticationToken)authentication);
-        } else {
+        }
+        else
+        {
             throw new AuthenticationServiceException("Could not authenticate.");
         }
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
-
-        if (aClass.equals(UserLoginAuthenticationToken.class)) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean supports(Class<?> aClass)
+    {
+        return aClass.equals(UserLoginAuthenticationToken.class);
     }
 
-    private UserLoginAuthenticationToken validateCredentials(UserLoginAuthenticationToken token) {
-
+    private UserLoginAuthenticationToken validateCredentials(UserLoginAuthenticationToken token)
+    {
         String csrfToken = token.getCsrfToken();
         String credentials = token.getCredentials();
 
-        if (CsrfTokenManager.containsLoginCsrfToken(csrfToken)) {
-
+        if (CsrfTokenManager.containsLoginCsrfToken(csrfToken))
+        {
             UserLoginAuthenticationToken authenticationPrincipal;
-            try {
+            try
+            {
                 ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 User user = mapper.readValue(credentials, User.class);
 
                 UserDao userDao = new UserDao();
                 User retrievedDbUser = userDao.findByUsername(user.getUsername());
 
-                if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword())) {
+                if (BCrypt.checkpw(user.getPassword(), retrievedDbUser.getPassword()))
+                {
                     authenticationPrincipal = new UserLoginAuthenticationToken(retrievedDbUser, true);
-                } else {
+                }
+                else
+                {
                     user = new User();
                     authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
                 }
-            } catch (Exception ex) {
-
+            }
+            catch (Exception ex)
+            {
                 ex.printStackTrace();
                 User user = new User();
                 authenticationPrincipal = new UserLoginAuthenticationToken(user, false);
             }
             return authenticationPrincipal;
-        } else {
+        }
+        else
+        {
             User user = new User();
             return new UserLoginAuthenticationToken(user, false);
         }
