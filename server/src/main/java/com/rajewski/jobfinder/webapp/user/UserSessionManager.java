@@ -7,6 +7,20 @@ public class UserSessionManager
 {
     private static Map<String, UserSession> sessions = new HashMap<>();
 
+    public static boolean isSessionValid(String sessionId)
+    {
+        UserSession userSession = sessions.get(sessionId);
+
+        if (userSession != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static boolean isSessionValid(String sessionId, String csrfToken)
     {
         UserSession userSession = sessions.get(sessionId);
