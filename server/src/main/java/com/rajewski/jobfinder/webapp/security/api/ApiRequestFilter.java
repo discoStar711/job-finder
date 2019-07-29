@@ -40,6 +40,24 @@ public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter
                 throw new AuthenticationServiceException("Could not authenticate user.");
             }
         }
+        else if (
+                request.getMethod().equals("POST") ||
+                request.getMethod().equals("PUT") ||
+                request.getMethod().equals("DELETE")
+        )
+        {
+            String csrfToken = request.getHeader("CSRF-Token");
+
+            if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty())
+            {
+                ApiRequestAuthenticationToken token = new ApiRequestAuthenticationToken(sessionId, csrfToken);
+                return getAuthenticationManager().authenticate(token);
+            }
+            else
+            {
+                throw new AuthenticationServiceException("Could not authenticate user.");
+            }
+        }
         else
         {
             throw new AuthenticationServiceException("Could not authenticate request.");
