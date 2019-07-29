@@ -7,6 +7,19 @@ public class ApiRequestAuthenticationToken extends AbstractAuthenticationToken
     private String csrfToken;
     private String sessionId;
 
+    public ApiRequestAuthenticationToken(String sessionId)
+    {
+        super(null);
+        this.sessionId = sessionId;
+    }
+
+    public ApiRequestAuthenticationToken(String sessionId, boolean isAuthenticated)
+    {
+        super(null);
+        this.sessionId = sessionId;
+        setAuthenticated(isAuthenticated);
+    }
+
     public ApiRequestAuthenticationToken(String sessionId, String csrfToken)
     {
         super(null);
