@@ -22,7 +22,7 @@ class UserDetails extends Component {
 
     fetchUserDetails() {
         axios({
-            method: 'post',
+            method: 'get',
             url: USER_API_URL,
             withCredentials: true
         })

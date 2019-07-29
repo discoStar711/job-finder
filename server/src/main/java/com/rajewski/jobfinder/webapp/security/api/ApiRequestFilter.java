@@ -12,32 +12,64 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter {
-
-    public ApiRequestFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+public class ApiRequestFilter extends AbstractAuthenticationProcessingFilter
+{
+    public ApiRequestFilter(RequestMatcher requiresAuthenticationRequestMatcher)
+    {
         super(requiresAuthenticationRequestMatcher);
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-
+    public Authentication attemptAuthentication(
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws AuthenticationException, IOException, ServletException
+    {
         Cookie[] cookies = request.getCookies();
         String sessionId = getCookie(cookies, "JSESSIONID").getValue();
-        String csrfToken = getCookie(cookies, "CSRF-Token").getValue();
 
-        if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty()) {
+        if (request.getMethod().equals("GET"))
+        {
+            if (sessionId != null && !sessionId.isEmpty())
+            {
+                ApiRequestAuthenticationToken token = new ApiRequestAuthenticationToken(sessionId);
+                return getAuthenticationManager().authenticate(token);
+            }
+            else
+            {
+                throw new AuthenticationServiceException("Could not authenticate user.");
+            }
+        }
+        else if (
+                request.getMethod().equals("POST") ||
+                request.getMethod().equals("PUT") ||
+                request.getMethod().equals("DELETE")
+        )
+        {
+            String csrfToken = request.getHeader("CSRF-Token");
 
-            ApiRequestAuthenticationToken token = new ApiRequestAuthenticationToken(sessionId, csrfToken);
-            return getAuthenticationManager().authenticate(token);
-        } else {
-            throw new AuthenticationServiceException("Could not authenticate cookies.");
+            if (sessionId != null && !sessionId.isEmpty() && csrfToken != null && !csrfToken.isEmpty())
+            {
+                ApiRequestAuthenticationToken token = new ApiRequestAuthenticationToken(sessionId, csrfToken);
+                return getAuthenticationManager().authenticate(token);
+            }
+            else
+            {
+                throw new AuthenticationServiceException("Could not authenticate user.");
+            }
+        }
+        else
+        {
+            throw new AuthenticationServiceException("Could not authenticate request.");
         }
     }
 
-    private Cookie getCookie(Cookie[] cookies, String name) {
-
-        for (Cookie cookie : cookies) {
-            if (name.equals(cookie.getName())) {
+    private Cookie getCookie(Cookie[] cookies, String name)
+    {
+        for (Cookie cookie : cookies)
+        {
+            if (name.equals(cookie.getName()))
+            {
                 return cookie;
             }
         }
