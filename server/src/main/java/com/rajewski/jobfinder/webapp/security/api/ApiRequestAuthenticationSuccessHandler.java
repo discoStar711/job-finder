@@ -24,7 +24,16 @@ public class ApiRequestAuthenticationSuccessHandler implements AuthenticationSuc
 
         if (authenticatedPrincipal.getCsrfToken() != null)
         {
-            
+            String sessionId = authenticatedPrincipal.getSessionId();
+            CsrfTokenManager csrfTokenManager = new CsrfTokenManager();
+            String newSessionCsrfToken = csrfTokenManager.getSessionToken();
+
+            UserSessionManager userSessionManager = new UserSessionManager();
+            userSessionManager.updateCsrfToken(sessionId, newSessionCsrfToken);
+
+            Cookie csrfTokenCookie = new Cookie("CSRF-Token", newSessionCsrfToken);
+            csrfTokenCookie.setPath("/");
+            response.addCookie(csrfTokenCookie);
         }
 
         request.getRequestDispatcher(request.getRequestURI()).forward(request, response);
