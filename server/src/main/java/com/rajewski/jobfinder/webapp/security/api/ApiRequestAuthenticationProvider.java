@@ -30,15 +30,31 @@ public class ApiRequestAuthenticationProvider implements AuthenticationProvider
     private ApiRequestAuthenticationToken validateSession(ApiRequestAuthenticationToken token)
     {
         String sessionId = token.getSessionId();
-        String csrfToken = token.getCsrfToken();
 
-        if (UserSessionManager.isSessionValid(sessionId, csrfToken))
+        if (token.getCsrfToken() != null)
         {
-            return new ApiRequestAuthenticationToken(sessionId, csrfToken, true);
+            String csrfToken = token.getCsrfToken();
+
+            if (UserSessionManager.isSessionValid(sessionId, csrfToken))
+            {
+                return new ApiRequestAuthenticationToken(sessionId, csrfToken, true);
+            }
+            else
+            {
+                return new ApiRequestAuthenticationToken(sessionId, csrfToken, false);
+            }
         }
         else
         {
-            return new ApiRequestAuthenticationToken(sessionId, csrfToken, false);
+            if (UserSessionManager.isSessionValid(sessionId))
+            {
+                return new ApiRequestAuthenticationToken(sessionId, true);
+            }
+            else
+            {
+                return new ApiRequestAuthenticationToken(sessionId, false);
+            }
         }
+
     }
 }
