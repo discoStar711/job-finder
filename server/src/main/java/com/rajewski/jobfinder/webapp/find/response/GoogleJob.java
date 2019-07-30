@@ -1,6 +1,6 @@
 package com.rajewski.jobfinder.webapp.find.response;
 
-import com.rajewski.jobfinder.webapp.find.Job;
+import com.rajewski.jobfinder.webapp.job.Job;
 
 public class GoogleJob extends Job
 {

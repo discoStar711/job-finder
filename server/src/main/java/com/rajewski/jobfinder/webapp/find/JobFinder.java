@@ -3,6 +3,7 @@ package com.rajewski.jobfinder.webapp.find;
 import com.rajewski.jobfinder.webapp.find.request.RequestGenerator;
 import com.rajewski.jobfinder.webapp.find.response.GoogleJob;
 import com.rajewski.jobfinder.webapp.find.response.ResponseGenerator;
+import com.rajewski.jobfinder.webapp.job.JobDao;
 
 import java.util.List;
 import java.util.Map;

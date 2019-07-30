@@ -1,6 +1,8 @@
-package com.rajewski.jobfinder.webapp.find;
+package com.rajewski.jobfinder.webapp.job;
 
+import com.rajewski.jobfinder.webapp.find.JobFinder;
 import com.rajewski.jobfinder.webapp.find.response.GoogleJob;
+import com.rajewski.jobfinder.webapp.job.JobDao;
 
 import java.util.List;
 import java.util.Timer;

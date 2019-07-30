@@ -1,4 +1,4 @@
-package com.rajewski.jobfinder.webapp.find;
+package com.rajewski.jobfinder.webapp.job;
 
 public abstract class Job
 {
