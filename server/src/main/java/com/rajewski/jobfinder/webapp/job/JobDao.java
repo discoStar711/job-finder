@@ -1,4 +1,4 @@
-package com.rajewski.jobfinder.webapp.find;
+package com.rajewski.jobfinder.webapp.job;
 
 import com.rajewski.jobfinder.webapp.find.response.GoogleJob;
 import org.apache.commons.dbcp2.BasicDataSource;
